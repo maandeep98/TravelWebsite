@@ -1,0 +1,295 @@
+<html>
+<head>
+
+</head>
+<body>
+
+
+    <div id="navigation-bar">
+        <ul>
+            <li class="nav-list-left" id="home-btn"><a href="/" class="a" onmouseover="hover2(this)" onmouseout="nohover2(this)"><i class="fa fa-home fa-2x" aria-hidden="true"></i><br><span class="mini">HOME</span></a></li>
+            <li class="nav-list-left" id="flight-btn"><a href="/flights" class="a" onmouseover="hover2(this)" onmouseout="nohover2(this)" ><i class="fa fa-plane fa-2x" aria-hidden="true"></i><br><span class="mini">FLIGHTS</span></a></li>
+            <li class="nav-list-left" id="hotel-btn"><a href="/hotel" class="a" onmouseover="hover2(this)" onmouseout="nohover2(this)"><i class="fa fa-bed fa-2x" aria-hidden="true"></i><br><span class="mini">HOTELS</span></a></li>
+            <li class="nav-list-left" id="train-btn"><a href="/trains" class="a" onmouseover="hover2(this)" onmouseout="nohover2(this)"><i class="fa fa-train fa-2x" aria-hidden="true"></i><br><span class="mini">TRAINS</span></a></li>
+            <li class="nav-list-left" id="bus-btn"><a href="/bus" class="a" onmouseover="hover2(this)" onmouseout="nohover2(this)"><i class="fa fa-bus fa-2x" aria-hidden="true"></i><br><span class="mini">BUSES</span></a></li>
+            <li class="nav-list-right" onmouseover="hover2(this)" onmouseout="nohover2(this)" id="support">
+                <a onclick="document.getElementById('id02').style.display='block'" class="a" style="width:auto;">SUPPORT</a></li>
+            <li class="nav-list-right"  onmouseover="hover2(this)" onmouseout="nohover2(this)" id="login">
+                <a onclick={signIn()} class="a" style="width:auto;" id="login-link">
+                    <span id="yoyo">
+                        LOGIN
+                    </span>
+                    <img src="" id="login-img">
+                </a>
+            </li>
+            <li class="nav-list-right"  onmouseover="hover2(this)" onmouseout="nohover2(this)" id="signout">
+                <a onclick={signout()} class="a" style="width:auto;" id="login-link">
+                    <span id="abc">
+                        SIGN OUT
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div id = 'reg' >
+    </div>
+
+
+
+    <div id="id02" class="modal">
+        <div id="emails" class="animate">
+            <div id="email-head">
+                <h1>
+                    <center>
+                        Contact
+                    </center>
+                </h1>
+            </div>
+            <div id="mails">
+                &nbsp;&nbsp; mahesh.jindal6@gmail.com<br>
+                &nbsp;&nbsp; kunwar31@gmail.com<br>
+                &nbsp;&nbsp; madhurgupta10@gmail.com<br>
+                &nbsp;&nbsp; maandeep998@gmail.com
+
+            </div>
+        </div>
+    </div>
+
+    <div id="extras">
+
+    </div>
+
+    <script>
+        function checkLogin() {
+            firebase.auth().onAuthStateChanged(function (user) {
+                if (user) {
+                    document.getElementById('login-img').src = user.photoURL;
+                    document.getElementById('login-img').style.display = "inline";
+                    document.getElementById('login-link').style.padding = 0;
+                    document.getElementById('yoyo').innerText = '';
+                    document.getElementById('signout').style.display = "inline";
+                } else {
+                    document.getElementById('yoyo').innerText = 'LOGIN';
+                    document.getElementById('login-img').style.display = "none";
+                    document.getElementById('signout').style.display = "none";
+                }
+            });
+        }
+
+        checkLogin();
+
+        //login system
+        function signIn() {
+            var googleAuthProvider = new firebase.auth.GoogleAuthProvider;
+
+            firebase.auth().signInWithPopup(googleAuthProvider)
+                .then(function (data) {
+                    console.log("data is" + data);
+                    document.getElementById('login').src = data.user.photoURL;
+                    checkLogin();
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+
+
+
+        function signout() {
+            firebase.auth().signOut();
+
+            document.getElementById('yoyo').innerText = 'LOGIN';
+            document.getElementById('login-img').style.display = "none";
+            checkLogin();
+            window.location.reload();
+        }
+
+        var screenh = window.innerHeight;
+        if (window.innerHeight > window.innerWidth)
+        {
+            var body = document.getElementById('bod').style;
+            body.background = "url('img/test2.jpg') no-repeat center center fixed";
+            body.webkitBackgroundSize = "cover";
+            body.mozBackgroundSize = "cover";
+            body.oBackgroundSize = "cover";
+            body.backgroundSize = "cover";
+        }
+        if (document.getElementById('hcontent')!== null)
+        {
+            // document.getElementById('hcontent').style.marginTop = screenh*0.05 + "px";
+            window.addEventListener('resize',function () {
+                //document.getElementById('hcontent').style.marginTop = screenh*0.05 + "px";
+            });
+
+        }
+        var carousel = document.getElementById("slideshow-container");
+        if (carousel !== null)
+        {
+            carousel.style.width = window.innerWidth * 0.7 + "px";
+            carousel.style.height = window.innerHeight * 0.65 + "px";
+            if (window.innerHeight > window.innerWidth)
+            {
+                carousel.style.height = window.innerHeight * 0.35 + "px";
+            }
+        }
+
+        window.addEventListener('onclick',function () {
+            if (window.innerHeight > window.innerWidth)
+            {
+                var body = document.getElementById('bod').style;
+                body.background = "url('img/map.jpg') no-repeat center center fixed";
+                body.webkitBackgroundSize = "cover";
+                body.mozBackgroundSize = "cover";
+                body.oBackgroundSize = "cover";
+                body.backgroundSize = "cover";
+            }
+        });
+
+
+        function hover2(select){
+            document.getElementById('navigation-bar').style.height = '5em';
+            select.style.border="2px solid #083d77";
+            select.style.borderTop = "none";
+
+            document.getElementById('bod').style.marginTop = "-10px";
+
+        }
+        function nohover2(select){
+            document.getElementById('navigation-bar').style.height = '4em';
+            select.style.border="none";
+
+            document.getElementById('bod').style.marginTop = "0px";
+        }
+        // Get the modal
+        var modal = document.getElementById('id01');
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
+        // Get the support page
+        var support = document.getElementById('id02');
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == support) {
+                support.style.display = "none";
+            }
+        }
+
+
+    </script>
+    <script>
+        var input = document.getElementsByClassName("airport");
+        var rinput = document.getElementsByClassName('rinput');
+        var airport =  [
+            ['Agartala,Tripura,Agartala Singerbhil','IXA'],
+            ['Agra,Uttar Pradesh,Agra Airport','AGR'],
+            ['Ahmedabad,Gujarat,Ahmedabad Airport','AMD'],
+            ['Allahabad,Uttar Pradesh,Allahabad Bamrauli','IXD'],
+            ['Amritsar,Punjab,Amritsar Raja Sansi Airport','ATQ'],
+            ['Aurangabad,Maharashtra,Chikalthan','IXU'],
+            ['Bagdogra,Sikkim,Bagdogra Airport','IXB'],
+            ['Bangalore,Karnataka,Bangalore Airport','BLR'],
+            ['Bhavnagar,Gujarat,Bhavnagar Civil Airport','BHU'],
+            ['Bhopal,Madhya Pradesh,Bhopal Airport','BHO'],
+            ['Bhubaneswar,Orissa,Bhubaneswar Airport','BBI'],
+            ['Bhuj,Gujarat,Bhuj Rudra Mata Airport','BHJ'],
+            ['Calcutta (Kolkata),West Bengal,Netaji S C Bose International Airport','CCU'],
+            ['Chandigarh,Chandigarh,Chandigarh Airport','IXC'],
+            ['Chennai(Madras),Tamil Nadu,Menmbarkam Airport','MAA'],
+            ['Cochin,Kerala,Cochin Airport','COK'],
+            ['Coimbatore,Coimbatore,Coimbatore Peelamedu Airport','CJB'],
+            ['Daman,Daman,Daman Airport','NMB'],
+            ['Dehradun,Uttar Pradesh,Dehradun Grant Airport','DED'],
+            ['Dibrugarh,Assam,Dibrugarh Airport','DIB'],
+            ['Dimapur,Nagaland,Dimapur Airport','DMU'],
+            ['Diu,Daman and Diu,Diu Airport','DIU'],
+            ['Gauhati,Assam,Gauhati Borjhar','GAU'],
+            ['Goa,Goa,Dabolim Airport',	'GOI'],
+            ['Gwalior,Madhya Pradesh,Gwalior Airport','GWL'],
+            ['Hubli,Karnataka,Hubli Airport','HBX'],
+            ['Hyderabad,Andhra Pradesh,Begumpet Airport','HYD'],
+            ['Imphal,Manipur,Imphal Municipal Airport',	'IMF'],
+            ['Indore,Madhya Pradesh,Indore Airport',	'IDR'],
+            ['Jaipur,Rajasthan,Jaipur Airport',	'JAI'],
+            ['Jammu,Jammu & Kashmir,Jammu Airport',	'IXJ'],
+            ['Jamnagar,Gujarat,Govardhanp Airport',	'JGA'],
+            ['Jamshedpur,Jharkhand,Jamshedpur Sonari Airport',	'IXW'],
+            ['Jodhpur,Rajasthan,Jodhpur Airport',	'JDH'],
+            ['Jorhat,Assam,Rowriah Airport',	'JRH'],
+            ['Kanpur,Utter Pradesh,	Kanpur Airport',	'KNU'],
+            ['Khajuraho,Madhya Pradesh,Khajuraho Airport','HJR'],
+            ['Kozhikode (Calicut),	Kerala,	Kozhikode (Calicut) Airport',	'CCJ'],
+            ['Leh,Jammu & Kashmir,	Leh Airport',	'IXL'],
+            ['Lucknow,Utter Pradesh,Amausi Airport',	'LKO'],
+            ['Ludhiana,Punjab,Ludhiana Sahnewal',	'LUH'],
+            ['Madurai,Tamil Nadu,Madurai Airport',	'IXM'],
+            ['Mangalore,Karnataka,Mangalore Bajpe Airport','IXE'],
+            ['Mumbai (Bombay),	Maharashtra	C S M International Airport','BOM'],
+            ['Nagpur,Maharashtra,Sonegaon Airport'	,'NAG'],
+            ['Nanded,Maharashtra,Nanded Airport'	,'NDC'],
+            ['Nasik,Maharashtra,Gandhi Nagar Airport',	'ISK'],
+            ['New Delhi,Delhi,Indira Gandhi International Airport',	'DEL'],
+            ['Patna,Bihar,Patna Airport','PAT'],
+            ['Pondicherry,Union Territory (UT),Pondicherry Airport',	'PNY'],
+            ['Poona (Pune),	Maharashtra,Lohegaon Airport','PNQ'],
+            ['Porbandar,Gujarat,Porbandar Airport',	'PBD'],
+            ['Port Blair,Andaman and Nicobar Islands,Port Blair Airport'	,'IXZ'],
+            ['Puttaparthi,Andhra Pradesh,Puttaparthi Airport',	'PUT'],
+            ['Rae Bareli,Uttar Pradesh,Rae Bareli Airport',	'BEK'],
+            ['Rajkot,Gujarat,Rajkot Airport',	'RAJ'],
+            ['Ranchi,Jharkhand,Ranchi Airport',	'IXR'],
+            ['Shillong,Meghalaya,Shillong Barapani Airport','SHL'],
+            ['Silchar,Mizoram,Kumbirgram Airport',	'IXS'],
+            ['Srinagar,J & K,Srinagar Airport',	'SXR'],
+            ['Surat,Gujrat,Surat Airport',	'STV'],
+            ['Tezpur,Assam,Tezpur Airport',	'TEZ'],
+            ['Tiruchirapally,Tamil Nadu,Tiruchirapalli Airport','TRZ'],
+            ['Tirupati,Andhra Pradesh,Tirupati Airport',	'TIR'],
+            ['Trivandrum,Kerala,Trivandrum International Airport','TRV'],
+            ['Udaipur,Rajasthan,Udaipur Airport','UDR'],
+            ['Vadodara,Gujarat,Vadodara Airport'	,'BDQ'],
+            ['Varanasi,Utter Pradesh,Babatpur Airport',	'VNS'],
+            ['Vijayawada,Andhra Pradesh,Vijayawada Airport','VGA'],
+            ['Vishakhapatnam,Andhra Pradesh,Vishakhapatnam Airport','VTZ']
+
+        ];
+        var railway = [
+            ['Chandigarh, Chandigarh','CDG'],
+            ['New Delhi,Delhi','NDLS'],
+            ['Central Chennai','MAS'],
+            ['Andheri,Mumbai,Maharashtra','ADH'],
+            ['Chinchvad,Pune,Maharashtra','CCH'],
+            ['Amausi,Lucknow,Uttar Pradesh','AMS'],
+            ['Ambala Cant Junction,Ambala','UMB']
+        ];
+        if (input[0])
+        {
+            new Awesomplete(input[0], {
+                list:airport
+            });
+            new Awesomplete(input[1], {
+                list:airport
+            });
+            new Awesomplete(input[2], {
+                list:airport
+            });
+            new Awesomplete(input[3], {
+                list:airport
+            });
+        }
+        if (rinput[0])
+        {
+            new Awesomplete(rinput[0], {
+                list:railway
+            });
+            new Awesomplete(rinput[1], {
+                list:railway
+            });
+        }
+
+    </script>
+</body>
+</html>
