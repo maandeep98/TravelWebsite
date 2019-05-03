@@ -1,9 +1,10 @@
-<html>
+<html ng-app="TravelApp">
 <head>
 
 </head>
 <body>
-
+<script src="./js/angular.min.js"></script>
+<script type="text/javascript" src="./js/app.js"></script>
 
     <div id="navigation-bar">
         <ul>
@@ -45,12 +46,11 @@
                     </center>
                 </h1>
             </div>
-            <div id="mails">
-                &nbsp;&nbsp; mahesh.jindal6@gmail.com<br>
-                &nbsp;&nbsp; kunwar31@gmail.com<br>
-                &nbsp;&nbsp; madhurgupta10@gmail.com<br>
-                &nbsp;&nbsp; maandeep998@gmail.com
-
+            <div id="mails" ng-controller="TravelController">
+                {{mail1}}<br>
+                {{mail2}}<br>
+                {{mail3}}<br>
+                {{mail4}}
             </div>
         </div>
     </div>
